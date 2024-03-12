@@ -1,0 +1,63 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+ name: xlabels.demo-kcl.crossplane.io
+ labels:
+   provider: aws
+spec:
+  writeConnectionSecretsToNamespace: crossplane-system
+  compositeTypeRef:
+    apiVersion: demo-kcl.crossplane.io/v1alpha1
+    kind: XNetwork
+  mode: Pipeline
+  pipeline:
+  - step: render-with-kcl
+    functionRef:
+      name: function-kcl
+    input:
+      apiVersion: krm.kcl.dev/v1alpha1
+      kind: KCLRun
+      metadata:
+        name: resource
+      spec:
+        target: Resources
+        # OCI, Git or inline sources are supported - we'll use inline here
+        # source: oci://ghcr.io/kcl-lang/crossplane-xnetwork-kcl-function
+        # source: github.com/kcl-lang/modules/crossplane-xnetwork-kcl-function
+        source: |
+          # Get the XR spec fields which are our user input
+          id = option("params")?.oxr?.spec?.id or ""
+          includeGateway = option("params")?.oxr?.spec?.includeGateway or False
+          count = option("params")?.oxr?.spec?.count or 1
+
+          # construct the labels based on the XR spec.id
+          network_id_labels = {"networks.meta.fn.crossplane.io/network-id" = id} if id else {}
+
+          # Create number of VPCs according to spec.count
+          vpcs = [{
+              apiVersion = "ec2.aws.upbound.io/v1beta1"
+              kind = "VPC"
+              metadata.name = "vpc-{}".format(i)
+              metadata.labels = network_id_labels
+              spec.forProvider = {
+                  region = "eu-west-1"
+                  cidrBlock = "192.168.0.0/16"
+                  enableDnsSupport = True
+                  enableDnsHostnames = True
+              }
+          } for i in range(count)]
+
+          # Optionally create number of gateways according to spec.count and spec.includeGateway
+          gateways = [{
+              apiVersion = "ec2.aws.upbound.io/v1beta1"
+              kind = "InternetGateway"
+              metadata.name = "gateway-{}".format(i)
+              metadata.labels = network_id_labels
+              spec.forProvider = {
+                  region = "eu-west-1"
+                  vpcIdSelector.matchControllerRef = True
+              }
+          } for i in range(count)] if includeGateway else []
+
+          # return any created VPCs and gateways
+          items = vpcs + gateways
