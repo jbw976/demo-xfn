@@ -1,0 +1,32 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+ name: xnetworks.demo-kcl.crossplane.io
+spec:
+  group: demo-kcl.crossplane.io
+  names:
+    kind: XNetwork
+    plural: xnetworks
+  claimNames:
+    kind: Network
+    plural: networks
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              count:
+                type: integer
+                description: The number of network objects to create.
+              includeGateway:
+                type: boolean
+                description: True to create an InternetGateway in addition to the VPC.
+              id:
+                type: string
+                description: ID of this Network that will be included in its labels for other objects to discover easily.

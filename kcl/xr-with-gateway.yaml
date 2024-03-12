@@ -1,0 +1,8 @@
+apiVersion: demo-kcl.crossplane.io/v1alpha1
+kind: XNetwork
+metadata:
+ name: xnetwork-kcl
+spec:
+  count: 2
+  includeGateway: true
+  id: xnetwork-kcl

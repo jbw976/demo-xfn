@@ -1,0 +1,9 @@
+apiVersion: demo-kcl.crossplane.io/v1alpha1
+kind: Network
+metadata:
+ name: network-kcl
+ namespace: default
+spec:
+ id: network-kcl
+ includeGateway: true
+ count: 1
