@@ -157,12 +157,12 @@ The file can be directly copied into your repo with:
 Then we can run `validate` on the piped output of `render` to verify our
 generated resources are well formed:
 ```console
-crossplane beta render xr.yaml composition.yaml functions.yaml -x | crossplane beta validate extensions.yaml -
+crossplane beta render xr.yaml composition.yaml functions.yaml -x | crossplane beta validate extensions.yaml --cache-dir="${HOME}/.crossplane/cache" -
 ```
 
 The full output of this will look like this:
 ```console
-❯ crossplane beta render xr.yaml composition.yaml functions.yaml -x | crossplane beta validate extensions.yaml -
+❯ crossplane beta render xr.yaml composition.yaml functions.yaml -x | crossplane beta validate extensions.yaml --cache-dir="${HOME}/.crossplane/cache" -
 [✓] example.crossplane.io/v1, Kind=XR, example-xr validated successfully
 [✓] s3.aws.upbound.io/v1beta1, Kind=Bucket, xbuckets-test-bucket validated successfully
 Total 2 resources: 0 missing schemas, 2 success cases, 0 failure cases
