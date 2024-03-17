@@ -206,7 +206,7 @@ Install Crossplane via the [Getting Started](https://docs.crossplane.io/v1.15/ge
 
 ### Installing the EC2 Provider
 
-Once Crossplane is installed, install the AWS Provider from the manifest at <https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.1.1>. A copy of the manifest is in this directory.
+Once Crossplane is installed, install the AWS Provider from the manifest at <https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.2.1>. A copy of the manifest is in this directory.
 
 The major Cloud providers (AWS, Azure, GCP) are broken up in to "family" providers in order to reduce CRDs installed on the cluster, which is why there is a separate provider for the EC2 related resources.
 
@@ -214,13 +214,13 @@ The major Cloud providers (AWS, Azure, GCP) are broken up in to "family" provide
 kubectl apply -f provider.yaml
 ```
 
-Verify that your Provider was installed Correctly. You should see that the `upbound-provider-family-aws` provider was automatically installed. This provider supplies the common `ProviderConfig` CRD.
+Verify that your Provider was installed correctly. You should see that the `upbound-provider-family-aws` provider was automatically installed. This provider supplies the common `ProviderConfig` CRD.
 
 ```shell
 ❯ kubectl get provider.pkg
 NAME                      INSTALLED   HEALTHY   PACKAGE                                          AGE
-upbound-provider-aws-ec2   True        True      xpkg.upbound.io/upbound/provider-aws-ec2:v1.2.0   9m
-upbound-provider-family-aws              True        True      xpkg.upbound.io/upbound/provider-family-aws:v1.2.0              10m
+upbound-provider-aws-ec2      True        True      xpkg.upbound.io/upbound/provider-aws-ec2:v1.2.0      5h17m
+upbound-provider-family-aws   True        True      xpkg.upbound.io/upbound/provider-family-aws:v1.2.0   5h16m
 ```
 
 ## Creating a Secret to Authenticate to AWS
@@ -288,9 +288,10 @@ Ensure the KCL functions are healthy:
 
 ```console
 ❯ kubectl get -f functions.yaml 
-NAME           INSTALLED   HEALTHY   PACKAGE                                                  AGE
-function-kcl   True        True      xpkg.upbound.io/crossplane-contrib/function-kcl:v0.2.0   114s
-function-auto-ready   True        True      xpkg.upbound.io/crossplane-contrib/function-auto-ready:v0.2.1   118s
+NAME                  INSTALLED   HEALTHY   PACKAGE                                                         AGE
+function-kcl          True        True      xpkg.upbound.io/crossplane-contrib/function-kcl:v0.2.0          4h47m
+function-auto-ready   True        True      xpkg.upbound.io/crossplane-contrib/function-auto-ready:v0.2.1   3h56m                                                 AGE
+
 ```
 
 ### Creating Resources
