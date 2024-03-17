@@ -167,3 +167,20 @@ The full output of this will look like this:
 [✓] s3.aws.upbound.io/v1beta1, Kind=Bucket, xbuckets-test-bucket validated successfully
 Total 2 resources: 0 missing schemas, 2 success cases, 0 failure cases
 ```
+
+## Python Functions
+
+It is also possible to write a full function implementation in Python:
+
+* [Python SDK](https://github.com/crossplane/function-sdk-python) contains
+  helper functions to make working with functions easier
+* [Python function
+  template](https://github.com/crossplane/function-template-python) repo gives
+  you a starting point with all the boiler plate for your new Python function
+
+To get started writing your function in Python, simply initialize a new Python
+functions project:
+
+```console
+crossplane beta xpkg init xfn-python-demo function-template-python -d xfn-python-demo
+```
