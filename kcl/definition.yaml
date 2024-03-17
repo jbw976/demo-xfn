@@ -36,6 +36,6 @@ spec:
                 default: default
               region:
                 type: string
-                description: Region where there resources will be created
+                description: Region where the resources will be created
                 default: "eu-central-1"
         
