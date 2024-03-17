@@ -29,18 +29,19 @@ spec:
           id = option("params")?.oxr?.spec?.id or ""
           includeGateway = option("params")?.oxr?.spec?.includeGateway or False
           count = option("params")?.oxr?.spec?.count or 1
-
-          # construct the labels based on the XR spec.id
-          network_id_labels = {"networks.meta.fn.crossplane.io/network-id" = id} if id else {}
+          region = option("params")?.oxr?.spec.region or "eu-central-1"
 
           # Create number of VPCs according to spec.count
           vpcs = [{
               apiVersion = "ec2.aws.upbound.io/v1beta1"
               kind = "VPC"
               metadata.name = "vpc-{}".format(i)
-              metadata.labels = network_id_labels
+              metadata.labels = {
+                "networks.meta.fn.crossplane.io/network-id" = id
+                "networks.meta.fn.crossplane.io/vpc-id" = "vpc-{}".format(i)
+              }
               spec.forProvider = {
-                  region = "eu-west-1"
+                  region = region
                   cidrBlock = "192.168.0.0/16"
                   enableDnsSupport = True
                   enableDnsHostnames = True
@@ -52,12 +53,22 @@ spec:
               apiVersion = "ec2.aws.upbound.io/v1beta1"
               kind = "InternetGateway"
               metadata.name = "gateway-{}".format(i)
-              metadata.labels = network_id_labels
+              metadata.labels = {
+                "networks.meta.fn.crossplane.io/network-id" = id
+              }
               spec.forProvider = {
-                  region = "eu-west-1"
-                  vpcIdSelector.matchControllerRef = True
+                  region = region
+                  vpcIdSelector = {
+                    matchControllerRef = True
+                    matchLabels = {
+                      "networks.meta.fn.crossplane.io/vpc-id" = "vpc-{}".format(i)
+                    }
+                  }
               }
           } for i in range(count)] if includeGateway else []
 
           # return any created VPCs and gateways
           items = vpcs + gateways
+  - step: ready
+    functionRef:
+      name: function-auto-ready
