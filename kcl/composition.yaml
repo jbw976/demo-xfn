@@ -29,6 +29,7 @@ spec:
           id = option("params")?.oxr?.spec?.id or ""
           includeGateway = option("params")?.oxr?.spec?.includeGateway or False
           count = option("params")?.oxr?.spec?.count or 1
+          providerConfigName = option("params")?.oxr?.spec?.providerConfigName or "default"
           region = option("params")?.oxr?.spec.region or "eu-central-1"
 
           # Create number of VPCs according to spec.count
@@ -46,6 +47,7 @@ spec:
                   enableDnsSupport = True
                   enableDnsHostnames = True
               }
+              spec.providerConfigRef.name = providerConfigName
           } for i in range(count)]
 
           # Optionally create number of gateways according to spec.count and spec.includeGateway
@@ -65,6 +67,7 @@ spec:
                     }
                   }
               }
+              spec.providerConfigRef.name = providerConfigName
           } for i in range(count)] if includeGateway else []
 
           # return any created VPCs and gateways
