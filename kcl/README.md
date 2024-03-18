@@ -206,7 +206,7 @@ Install Crossplane via the [Getting Started](https://docs.crossplane.io/v1.15/ge
 
 ### Installing the EC2 Provider
 
-Once Crossplane is installed, install the AWS Provider from the manifest at <https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.2.1>. A copy of the manifest is in this directory.
+Once Crossplane is installed, install the AWS Provider from the manifest at <https://marketplace.upbound.io/providers/upbound/provider-aws-ec2/v1.2.0>. A copy of the manifest is in this directory.
 
 The major Cloud providers (AWS, Azure, GCP) are broken up in to "family" providers in order to reduce CRDs installed on the cluster, which is why there is a separate provider for the EC2 related resources.
 
