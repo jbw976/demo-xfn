@@ -1,0 +1,12 @@
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: cloud-rejekts-xfn
+  labels:
+    owner: stefano-borrelli
+spec:
+  forProvider:
+    region: us-west-1
+    objectLockEnabled: true
+    tags:
+      Name: cloud-rejekts-xfn
