@@ -3,7 +3,7 @@ kind: Bucket
 metadata:
   name: cloud-rejekts-xfn
   labels:
-    owner: stefano-borrelli
+    owner: cloud-rejekts-demo
 spec:
   forProvider:
     region: us-west-1
