@@ -1,0 +1,9 @@
+{
+  "desired": {
+    "composite": {
+      "resource": {
+        "Kind": "KubernetesCluster"
+      }
+    }
+  }
+}
