@@ -1,5 +1,21 @@
 # xfn-demo
 
+This repository contains some demos that show off
+[Functions](https://docs.crossplane.io/latest/concepts/composition-functions/)
+in Crossplane:
+
+1. Basic Functions usage and workflow on [this main README](#basic-functions-usage)
+1. Using `function-kcl` to compose resources with KCL: [`function-kcl`
+  demo](./kcl/README.md)
+1. Showing an analogy for functions as unix tool pipelines to manipulate [live
+   resources in AWS](./basic) as shown by
+   [@stevendborrelli](https://github.com/stevendborrelli) in a Cloud Native
+   Rejekts EU 2024 talk
+   [here](https://youtu.be/ZWdaQ4lH8ec?si=vhhTRebKDLQN44pR&t=269) and
+   [here](https://youtu.be/ZWdaQ4lH8ec?si=lnBwFiPeRzsvNNnJ&t=598).
+
+## Basic Functions usage
+
 ## pre-reqs
 
 * install CLI with https://docs.crossplane.io/latest/cli/#installing-the-cli
